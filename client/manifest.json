@@ -1,0 +1,17 @@
+{
+  "name": "Orion Health Monitor",
+  "short_name": "Orion",
+  "description": "Smart Disaster Response & Health Monitor",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/803/803276.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
