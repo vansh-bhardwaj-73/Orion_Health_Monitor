@@ -94,14 +94,23 @@ router.post('/log', async (req, res) => {
       ...rest,
     };
 
-    const result = await logSymptom(symptomData);
+    const savedResult = await logSymptom(symptomData);
+
+    // Return the full enriched object (not just Cloudant {ok,id,rev})
+    // so the frontend can read severity, response, tags, etc.
+    const fullResult = {
+      ...symptomData,
+      _id: savedResult.id || savedResult._id,
+      _rev: savedResult.rev || savedResult._rev,
+      ok: savedResult.ok,
+    };
 
     // Pass back alert URL for frontend WhatsApp button
     if (alert && alert.whatsappLink) {
-      result.whatsappLink = alert.whatsappLink;
+      fullResult.whatsappLink = alert.whatsappLink;
     }
 
-    res.status(201).json(result);
+    res.status(201).json(fullResult);
   } catch (error) {
     console.error('Symptom log error:', error.message);
     res.status(400).json({ error: error.message });
